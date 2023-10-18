@@ -40,3 +40,23 @@
 .read-the-docs {
   color: #888;
 }
+.companiesContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.companies{
+  list-style-type: none;
+  border: 2px solid rgb(48, 54, 48);
+  width: 70%;
+  margin-left: 85px;
+  margin-top: 100px;
+  box-shadow: 4px 5px #888888;
+  text-align: center;
+
+}
+.company{
+  padding: 20px
+}
+.companyImg{
+  width: 40%;
+}

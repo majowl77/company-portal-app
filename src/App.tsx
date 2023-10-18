@@ -1,17 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { Button, Box, Grid, Typography } from '@mui/material'
-
-import { RootState } from './redux/store'
 import './App.css'
 import Companies from './component/Companies'
+import { Route, Routes } from 'react-router-dom'
+import Company from './component/Company'
 
 function App() {
-  // const count = useSelector((state: RootState) => state)
-  const dispatch = useDispatch()
 
   return (
     <div className="App">
-      <Companies />
+    <Routes>
+      <Route path="/" element={<Companies />}/>
+      <Route path="/:id" element={<Company />}/>
+           {/* <Route path="me" element={<Company />} /> */}
+    </Routes>      
     </div>
   )
 }

@@ -31,11 +31,38 @@ const companiesSlice = createSlice({
             state.error = action.payload;
             state.loading = false;
         },
-        getSearchCompany : (state, action)=>{
-            if( action.payload != null){
-                state.compainesList = state.compainesList.filter((company)=> company.login.toLocaleLowerCase().includes( action.payload.toLocaleLowerCase()));
-            }
-    },
+       getSelectedSort: (state , action:PayloadAction<string>)=>{
+        if (action.payload === "Ascending"){
+            state.compainesList.sort((a, b) => {
+                const nameA = a.login.toUpperCase(); // ignore upper and lowercase
+                const nameB = b.login.toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                  return -1;
+                }
+                if (nameA > nameB) {
+                  return 1;
+                }
+                // names must be equal
+                return 0;
+              });
+        }else if (action.payload === "Descending"){
+            state.compainesList.sort((a, b) => {
+                const nameA = a.login.toUpperCase(); // ignore upper and lowercase
+                const nameB = b.login.toUpperCase(); // ignore upper and lowercase
+                if (nameA >nameB) {
+                  return -1;
+                }
+                if (nameA < nameB) {
+                  return 1;
+                }
+                // names must be equal
+                return 0;
+              });
+        }else{
+
+        }
+
+       }
 
 }})
 export default companiesSlice.reducer

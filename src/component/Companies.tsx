@@ -45,7 +45,7 @@ export default function Companies() {
         <Alert severity="error">{errorMessage}</Alert>
       </Stack>
     )
-  }
+  };
   return (
     <div>
       <h2> Comapines </h2>

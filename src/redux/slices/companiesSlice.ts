@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import React from 'react'
 
 import { Company, CompanyOne } from '../../Type/type'
@@ -31,16 +31,16 @@ const companiesSlice = createSlice({
     name : "companies",
     initialState: initialState,
     reducers:{
-        getComapnyData: (state , action)=> {
+        getComapnyData: (state , action:PayloadAction<Company[]>)=> {
             state.compainesList = action.payload;
             state.loading = false;
         },
-        getError: (state, action) => {
+        getError: (state, action:PayloadAction<string>) => {
             state.error = action.payload;
             state.loading = false;
 
         },
-        getOneCompany: (state, action )=> {
+        getOneCompany: (state, action:PayloadAction<CompanyOne> )=> {
             state.company = action.payload
             state.loading = false;
         }

@@ -8,13 +8,13 @@ import Alert from '@mui/material/Alert'
 import Stack from '@mui/material/Stack'
 
 import { companyAction } from '../redux/slices/companySlice'
-import { RootState } from '../redux/store'
+import { AppDispatch, RootState } from '../redux/store'
 
 export default function company() {
   let { id } = useParams()
   console.log(id)
   const url = 'https://api.github.com/organizations' + `/${id}`
-  const dispatch = useDispatch()
+  const dispatch = useDispatch <AppDispatch>()
   const companyDetails = useSelector((state: RootState) => state.companyR.company)
   const isLoading = useSelector((state: RootState) => state.companyR.loading)
   const errorMessage = useSelector((state: RootState) => state.companyR.error)

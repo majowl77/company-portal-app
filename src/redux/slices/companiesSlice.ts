@@ -33,33 +33,31 @@ const companiesSlice = createSlice({
         },
        getSelectedSort: (state , action:PayloadAction<string>)=>{
         if (action.payload === "Ascending"){
-            state.compainesList.sort((a, b) => {
-                const nameA = a.login.toUpperCase(); // ignore upper and lowercase
-                const nameB = b.login.toUpperCase(); // ignore upper and lowercase
-                if (nameA < nameB) {
+            state.compainesList.sort((Company1, Company2) => {
+                const CompanyOne = Company1.login.toUpperCase(); 
+                const Companytwo = Company2.login.toUpperCase();
+                if (CompanyOne < Companytwo) {
                   return -1;
                 }
-                if (nameA > nameB) {
+                if (CompanyOne > Companytwo) {
                   return 1;
                 }
-                // names must be equal
+                
                 return 0;
               });
         }else if (action.payload === "Descending"){
-            state.compainesList.sort((a, b) => {
-                const nameA = a.login.toUpperCase(); // ignore upper and lowercase
-                const nameB = b.login.toUpperCase(); // ignore upper and lowercase
-                if (nameA >nameB) {
+            state.compainesList.sort((Company1, Company2) => {
+                const CompanyOne = Company1.login.toUpperCase(); 
+                const Companytwo = Company2.login.toUpperCase(); 
+                if (CompanyOne >Companytwo) {
                   return -1;
                 }
-                if (nameA < nameB) {
+                if (CompanyOne < Companytwo) {
                   return 1;
                 }
-                // names must be equal
+               
                 return 0;
               });
-        }else{
-
         }
 
        }

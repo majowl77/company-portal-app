@@ -1,6 +1,6 @@
 import { useSelect } from '@mui/base'
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
@@ -10,14 +10,19 @@ import { Link } from 'react-router-dom'
 
 import { compainesAction } from '../redux/slices/companiesSlice'
 import { AppDispatch, RootState } from '../redux/store'
+import { Company } from '../Type/type'
 
 export default function Companies() {
   const dispatch = useDispatch <AppDispatch>()
   const url = 'https://api.github.com/organizations'
   const companiesList = useSelector((state: RootState) => state.companies.compainesList);
-  const errorMessage = useSelector((state: RootState) => state.companies.error);
-  const isLoading = useSelector((state: RootState) => state.companies.loading);
+  const searchcompaniesList = useSelector((state: RootState) => state.companies.searchCompainesList);
 
+  const errorMessage = useSelector((state: RootState) => state.companies.error);
+  const searchKey = useSelector((state: RootState) => state.companies.searchKeyword);
+
+  const isLoading = useSelector((state: RootState) => state.companies.loading);
+  const [searchKeyword,setSearchKeyword]= useState("")
   useEffect(() => {
     function fetchCompainesData() {
       axios
@@ -46,11 +51,36 @@ export default function Companies() {
       </Stack>
     )
   };
+
+  function getSearchKeyword(event : React.ChangeEvent<HTMLInputElement>){
+     setSearchKeyword(event.target.value);
+     console.log(searchKeyword);
+  }
+
+const filterCompaines = (searchKeyword: string , companies: Company[])=>{
+    if (searchKeyword != null){
+        const newCompainesList = companies.filter((company)=> company.login.toLocaleLowerCase().includes( searchKeyword.toLocaleLowerCase()));
+    return  newCompainesList;
+    }
+    
+  }
+const filteredCompanis = filterCompaines(searchKeyword, companiesList);
+
+
+//   function handleSearchLogin(){
+//     if (companiesList.length>0 && searchKeyword!= null ){
+//         const companyLogin = companiesList.find((company)=> company.login == searchKeyword)
+//         console.log(companyLogin);
+//     }
+    
+//   }
+
   return (
     <div>
       <h2> Comapines </h2>
+      <label> Search By Name : <input type="text" name="serachByName" onChange={getSearchKeyword} /></label>
       <div className='companiesContainer'>
-        {companiesList.length >0 && companiesList.map((company) => (
+        {filteredCompanis && filteredCompanis.length > 0 && filteredCompanis.map((company) => (
           <ul className="companies" key={company.id}>
             <li className="company" >
               <img src={company.avatar_url} alt={company.login} className="companyImg" />
@@ -58,11 +88,12 @@ export default function Companies() {
               <p>Company Description: {company.description}</p>
               <p> Company's id :{company.id}</p>
               <button>
-                <Link to={`/${company.id}`}> Company's Info </Link>
+                <Link to={`companies/${company.id}`}> Company's Info </Link>
               </button>
             </li>
           </ul>
         ))}
+
       </div>
     </div>
   )

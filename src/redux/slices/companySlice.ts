@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import React from 'react'
 
-import { Company, CompanyOne } from '../../Type/type'
+import { CompanyOne } from '../../Type/type'
 
 type InitialState ={
     loading : boolean ,

@@ -18,5 +18,6 @@ export type CompanyOne = {
   followers: number,
   following: number,
   type: string,
+  name: string
 }
 

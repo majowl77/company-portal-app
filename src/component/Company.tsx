@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -45,23 +45,24 @@ export default function company() {
       </Stack>
     )
   }
-  function handleBack() {
+  function handleBackButton() {
     dispatch(companyAction.resetCompanyInfo())
   }
   return (
     <div>
       {companyDetails != null && 
         <div>
-          <button onClick={handleBack}>
+          <button onClick={handleBackButton}>
 
             <Link to={'/'}>Back to Previous page </Link>
           </button>
           <h2>company's Details</h2>
           <div className="companies">
             <div className="company">
-              <p> Company's Login : {companyDetails.login}</p>
-              <img src={companyDetails.avatar_url} className="companyImg" />
+              <p className='companyName'> {companyDetails.name}</p>
               <p> {companyDetails.description}</p>
+              <img src={companyDetails.avatar_url} className="companyImg" />
+              <p> Company's Login : {companyDetails.login}</p>
               <p> Company's Type : {companyDetails.type}</p>
               <p> Company's Following : {companyDetails.following}</p>
               <p> Company's Followers : {companyDetails.followers}</p>

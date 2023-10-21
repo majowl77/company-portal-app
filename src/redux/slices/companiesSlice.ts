@@ -1,21 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import React from 'react'
 
-import { Company, CompanyOne } from '../../Type/type'
+import { Company } from '../../Type/type'
 
 type InitialState ={
     compainesList: Company[],
-    searchCompainesList: null |Company[],
     loading : boolean ,
     error : null | string,
-    searchKeyword: null | string;
 }
 const initialState :InitialState ={
     compainesList: [],
     loading : true ,
     error : null ,
-    searchCompainesList: null,
-    searchKeyword: null
 
 
 }

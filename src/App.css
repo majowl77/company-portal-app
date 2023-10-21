@@ -63,3 +63,7 @@
 .companyImg{
   width: 40%;
 }
+.companyName{
+  font-size: 30px;
+  margin: 10px 0;
+}

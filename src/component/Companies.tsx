@@ -11,7 +11,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import TextField from '@mui/material/TextField';
+import TextField from '@mui/material/TextField'
 
 import { compainesAction } from '../redux/slices/companiesSlice'
 import { AppDispatch, RootState } from '../redux/store'
@@ -19,16 +19,14 @@ import { Company } from '../Type/type'
 import { InputAdornment } from '@mui/material'
 
 export default function Companies() {
+
   const dispatch = useDispatch<AppDispatch>()
   const url = 'https://api.github.com/organizations'
   const companiesList = useSelector((state: RootState) => state.companies.compainesList)
-  const searchcompaniesList = useSelector((state: RootState) => state.companies.searchCompainesList)
-
   const errorMessage = useSelector((state: RootState) => state.companies.error)
-  const searchKey = useSelector((state: RootState) => state.companies.searchKeyword)
-
   const isLoading = useSelector((state: RootState) => state.companies.loading)
   const [searchKeyword, setSearchKeyword] = useState('')
+
   useEffect(() => {
     function fetchCompainesData() {
       axios
@@ -56,12 +54,11 @@ export default function Companies() {
       </Stack>
     )
   }
-
+  // getting a search letters while user is typing 
   function getSearchKeyword(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchKeyword(event.target.value)
     console.log(searchKeyword)
   }
-
   const filterCompaines = (searchKeyword: string, companies: Company[]) => {
     if (searchKeyword != null) {
       const newCompainesList = companies.filter((company) =>
@@ -72,6 +69,7 @@ export default function Companies() {
   }
   const filteredCompanis = filterCompaines(searchKeyword, companiesList)
 
+  // sorting a list by dispatch an action 
   const selectChange = (event: SelectChangeEvent) => {
     dispatch(compainesAction.getSelectedSort(event.target.value))
     console.log(event.target.value)
@@ -81,28 +79,31 @@ export default function Companies() {
     <div>
       <h1> Comapines Portal App </h1>
       {/* adding search features  */}
-        <TextField
-          label="Search By Name :"
-          onChange={getSearchKeyword}
-          id="outlined-start-adornment"
-          sx={{ m: 1, width: '25ch' }}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">login</InputAdornment>,
-          }}
-        />
-         {/* <input type="text" onChange={getSearchKeyword} /> */}
+      <TextField
+        label="Search By Name :"
+        onChange={getSearchKeyword}
+        id="outlined-start-adornment"
+        sx={{ m: 1, width: '25ch' }}
+        InputProps={{ startAdornment: <InputAdornment position="start">login</InputAdornment> }}
+      />
 
       {/* adding sort features  */}
       <FormControl sx={{ m: 1, minWidth: 150 }} size="medium" color="secondary">
-        <InputLabel id="demo-simple-select-helper-label" color="secondary">Sort By:</InputLabel>
+        <InputLabel id="demo-simple-select-helper-label" color="secondary">
+          Sort By:
+        </InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
           label="Sort"
           onChange={selectChange}
           color="secondary">
-          <MenuItem value="Ascending"  color="secondary" >Ascending</MenuItem>
-          <MenuItem value="Descending"  color="secondary">Descending</MenuItem>
+          <MenuItem value="Ascending" color="secondary">
+            Ascending
+          </MenuItem>
+          <MenuItem value="Descending" color="secondary">
+            Descending
+          </MenuItem>
         </Select>
       </FormControl>
       <div className="companiesContainer">

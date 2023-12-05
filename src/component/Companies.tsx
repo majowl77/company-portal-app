@@ -18,7 +18,6 @@ import { Company } from '../Type/type'
 import { InputAdornment } from '@mui/material'
 
 export default function Companies() {
-
   const dispatch = useDispatch<AppDispatch>()
   const url = 'https://api.github.com/organizations'
   const companiesList = useSelector((state: RootState) => state.companies.compainesList)
